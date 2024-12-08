@@ -4,12 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from flask import redirect, url_for, flash
 
 from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
+app.secret_key = os.urandom(24)
 CORS(app)
 
 class Todo(db.Model):
@@ -81,19 +83,18 @@ def grol():
     timetable_entries = Timetable.query.all()
     return render_template('assignment/grol.html', timetable_entries=timetable_entries)
 
-@app.route('/assignment/resetgrol/')
-def resetgrol():
-    # Reset all timetable entries to "N/A"
-    timetable_entries = Timetable.query.all()
-    for entry in timetable_entries:
-        entry.cooking = "N/A"
-        entry.cleaning = "N/A"
-    db.session.commit()  # Commit the changes to the database
 
-    # Reload the timetable entries and render the template
-    updated_timetable_entries = Timetable.query.all()
-    print(updated_timetable_entries,"---------------")
-    return render_template('assignment/grol.html', timetable_entries=updated_timetable_entries)
+@app.route('/assignment/resetgrol/', methods=['POST'])
+def resetgrol():
+    try:
+        # Bulk update to reset all timetable entries
+        Timetable.query.update({Timetable.cooking: "N/A", Timetable.cleaning: "N/A"})
+        db.session.commit()  # Commit the changes to the database
+        flash("All timetable entries have been reset.", "success")
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of error
+        flash(f"An error occurred while resetting: {str(e)}", "danger")
+    return redirect(url_for('grol'))
 
 @app.route('/assignment/pantrypage/')
 def pantrypage():
