@@ -1,0 +1,164 @@
+{% block head %}
+<title>Update Bill Entry</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Press Start 2P', cursive;
+        color: white;
+        margin: 0;
+        padding: 0;
+
+        /* Galaxy-like gradient effect */
+        background: radial-gradient(circle at center, #2b0a45, #000),
+            radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+        /* Optional animation effect */
+        animation: stars 60s linear infinite;
+    }
+
+    .content {
+        padding: 20px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 15px;
+        margin-top: 100px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-top: 20px;
+        color: #ffd700;
+        /* Gold color */
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    .form-label {
+        font-size: 1.25rem;
+        color: #d83c00;
+        /* Slightly muted Mario red */
+        font-weight: bold;
+        /* Make labels stand out subtly */
+    }
+
+    .form-control {
+        background-color: #ffefa1;
+        /* Softer yellow, easier on the eyes */
+        color: #333333;
+        /* Darker text for readability */
+        border: 2px solid #d83c00;
+        /* Matching muted red for borders */
+        border-radius: 8px;
+        /* Slightly more rounded for a friendlier look */
+        font-size: 1rem;
+        padding: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        /* Add a soft shadow for depth */
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #ffd700;
+        /* Gold on focus for a playful Mario vibe */
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        /* Glowing effect on focus */
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .btn-success {
+        margin-top: 15px;
+    }
+
+    .tabs-wrapper {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: black;
+        /* Opaque background */
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .tab img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .tab span {
+        margin-top: 5px;
+        font-size: 1rem;
+        color: #ffd700;
+        /* Gold text for Mario vibe */
+    }
+
+    .container {
+        margin-bottom: 100px;
+        /* To prevent overlap with the home button */
+        overflow-y: auto;
+        /* Enable scrolling */
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container content">
+    <h1>Update Bill Entry</h1>
+    <form action="/assignment/editbills/{{ entry.id }}" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="due_date" class="form-label">Bill Date</label>
+            <input type="datetime-local" id="due_date" name="due_date" class="form-control" value="{{ entry.due_date }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="bill_image" class="form-label">Upload Bill Image:</label>
+            <input type="file" id="bill_image" name="bill_image" accept="image/*" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Price</label>
+            <input type="number" step="0.01" name="amount" id="amount" class="form-control" value="{{ entry.amount }}"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="bill_name" class="form-label">Bill Type</label>
+            <input type="text" name="bill_name" id="bill_name" class="form-control" value="{{ entry.bill_name }}"
+                required>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Update</button>
+            <button type="button" class="btn btn-danger" onclick="window.history.back()">Cancel</button>
+        </div>
+
+    </form>
+</div>
+
+<div class="tabs-wrapper">
+    <a href="/assignment/homepage/" class="tab">
+        <img src="https://thepapermarioproject.wordpress.com/wp-content/uploads/2013/03/marios-house-exterior-1.png"
+            alt="Home Icon" style="width: 100px; height: auto;">
+
+        <span>Home</span>
+    </a>
+</div>
+{% endblock %}

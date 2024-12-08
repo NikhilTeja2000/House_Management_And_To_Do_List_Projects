@@ -1,0 +1,247 @@
+{% block head %}
+<title>Task Master - Weekly Schedule</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Press Start 2P', cursive;
+        color: white;
+        margin: 0;
+        padding: 0;
+
+        /* Galaxy-like gradient effect */
+        background: radial-gradient(circle at center, #2b0a45, #000),
+                    radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+        /* Optional animation effect */
+        animation: stars 60s linear infinite;
+    }
+
+    .content {
+        text-align: center;
+        margin-bottom: 10px; /* Adjusted to prevent overlap with the home button */
+    }
+
+    p {
+        font-size: 1rem;
+        color: #ffd700; /* Gold text for thematic consistency */
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+        border-radius: 15px; /* Softer rounded corners */
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Add a shadow for depth */
+    }
+
+    th, td {
+        padding: 15px;
+        border: none; /* Remove borders for a cleaner look */
+        text-align: center;
+        color: white; /* Ensure contrast against background */
+    }
+
+    th {
+        background: linear-gradient(45deg, #3a0ca3, #7209b7); /* Gradient for header */
+        color: #ffd700; /* Gold for header text */
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase; /* Enhance readability */
+    }
+
+    td {
+        background: rgba(0, 0, 0, 0.6); /* Transparent black for table rows */
+        font-size: 1rem;
+    }
+
+    tr:nth-child(even) td {
+        background: rgba(0, 0, 0, 0.8); /* Alternate row color for better visibility */
+    }
+
+    tr:hover td {
+        background: rgba(255, 215, 0, 0.3); /* Subtle highlight on hover */
+        transition: background 0.3s ease; /* Smooth transition effect */
+    }
+
+    .tabs-wrapper {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centers the home icon */
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px 0;
+    }
+
+    .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .tab img {
+        width: 50px; /* Adjust size as needed */
+        height: 50px;
+    }
+
+    .tab span {
+        margin-top: 5px;
+        font-size: 1rem;
+        color: #ffd700; /* Gold text for Mario vibe */
+    }
+
+    .download-btn {
+        margin: 20px auto;
+        display: block;
+        font-size: 1.2rem;
+        color: white;
+        background-color: #ff4500;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .download-btn:hover {
+        background-color: #d83c00;
+    }
+
+    @keyframes stars {
+        0% { background-position: 0 0, 40% 30%; }
+        100% { background-position: 100% 100%, 60% 70%; }
+    }
+ 
+
+/* Flexbox container for content */
+.content-container {
+    display: flex; /* Create a row layout */
+    justify-content: space-between; /* Space between table and image */
+    align-items: flex-start; /* Align items at the top */
+    gap: 20px; /* Add space between table and image */
+    margin: 20px auto; /* Center the container horizontally */
+    width: 90%; /* Adjust width as needed */
+}
+
+/* Table Section */
+.table-container {
+    flex: 2; /* Table takes more space */
+}
+
+/* Image Section */
+.image-section {
+    display: flex;
+    flex-direction: column; /* Stack image and button vertically */
+    align-items: center; /* Center image and button horizontally */
+    flex: 1; /* Image section takes less space */
+}
+
+.image-section img.large-image {
+    width: 350px; /* Adjust the image size */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Space between image and button */
+    border-radius: 10px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+}
+
+.image-section .btn {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.image-section .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container content">
+    <br><br>
+    <h1>Weekly Task Schedule</h1>
+    <br>
+    <p>Welcome to Task Master! Plan your weekly cooking and cleaning tasks with ease. Stay organized and on top of your chores.</p>
+    
+  
+    
+</div>
+<div class="content-container">
+    <!-- Table Section -->
+    <div class="table-container">
+        <table class="table table-bordered table-dark" id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Cooking</th>
+                    <th>Cleaning</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in timetable_entries %}
+                <tr>
+                    <td>{{ entry.day }}</td>
+                    <td>{{ entry.cooking }}</td>
+                    <td>{{ entry.cleaning }}</td>
+                    <td>
+                        <a href="/assignment/update/{{ entry.id }}" class="btn btn-warning btn-sm">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Image Section -->
+    <div class="image-section">
+        <img src="/static/uploads/wallpaper/t1.png" alt="Example Image" class="large-image">
+        <a href="/assignment/resetgrol/" class="btn btn-primary">Reset</a>
+    </div>
+</div>
+
+<button class="download-btn" onclick="downloadCSV()">Download Table as CSV</button>
+<div class="tabs-wrapper">
+    <a href="/assignment/homepage/" class="tab">
+        <img src="https://thepapermarioproject.wordpress.com/wp-content/uploads/2013/03/marios-house-exterior-1.png" alt="Home Icon"  style="width: 100px; height: auto;">
+        <span>Home</span>
+    </a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function downloadCSV() {
+        const table = document.getElementById("scheduleTable");
+        let csvContent = "";
+        for (let row of table.rows) {
+            let rowData = Array.from(row.cells).slice(0,-1).map(cell => `"${cell.innerText}"`).join(",");
+            csvContent += rowData + "\n";
+        }
+
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Task_Master_Schedule.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+{% endblock %}
