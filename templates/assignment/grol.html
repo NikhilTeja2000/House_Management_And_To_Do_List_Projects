@@ -8,15 +8,12 @@
         color: white;
         margin: 0;
         padding: 0;
-
-        /* Galaxy-like gradient effect */
+        padding-bottom: 70px; /* Prevent overlap with fixed tab bar */
         background: radial-gradient(circle at center, #2b0a45, #000),
                     radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-
-        /* Optional animation effect */
         animation: stars 60s linear infinite;
     }
 
@@ -75,11 +72,16 @@
     .tabs-wrapper {
         position: fixed;
         bottom: 0;
+        left: 0;
         width: 100%;
         display: flex;
-        justify-content: center; /* Centers the home icon */
-        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        /* Centers horizontally */
+        align-items: center;
+        /* Centers vertically */
+        background: black;
         padding: 10px 0;
+        z-index: 1000;
     }
 
     .tab {
@@ -121,55 +123,54 @@
         0% { background-position: 0 0, 40% 30%; }
         100% { background-position: 100% 100%, 60% 70%; }
     }
- 
 
-/* Flexbox container for content */
-.content-container {
-    display: flex; /* Create a row layout */
-    justify-content: space-between; /* Space between table and image */
-    align-items: flex-start; /* Align items at the top */
-    gap: 20px; /* Add space between table and image */
-    margin: 20px auto; /* Center the container horizontally */
-    width: 90%; /* Adjust width as needed */
-}
+    /* Flexbox container for content */
+    .content-container {
+        display: flex; /* Create a row layout */
+        justify-content: space-between; /* Space between table and image */
+        align-items: flex-start; /* Align items at the top */
+        gap: 20px; /* Add space between table and image */
+        margin: 20px auto; /* Center the container horizontally */
+        width: 90%; /* Adjust width as needed */
+    }
 
-/* Table Section */
-.table-container {
-    flex: 2; /* Table takes more space */
-}
+    /* Table Section */
+    .table-container {
+        flex: 2; /* Table takes more space */
+        max-height: 60vh; /* Restrict the table's height */
+        overflow-y: auto; /* Add vertical scrolling for overflowing content */
+    }
 
-/* Image Section */
-.image-section {
-    display: flex;
-    flex-direction: column; /* Stack image and button vertically */
-    align-items: center; /* Center image and button horizontally */
-    flex: 1; /* Image section takes less space */
-}
+    /* Image Section */
+    .image-section {
+        display: flex;
+        flex-direction: column; /* Stack image and button vertically */
+        align-items: center; /* Center image and button horizontally */
+        flex: 1; /* Image section takes less space */
+    }
 
-.image-section img.large-image {
-    width: 350px; /* Adjust the image size */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 10px; /* Space between image and button */
-    border-radius: 10px; /* Optional: Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
-}
+    .image-section img.large-image {
+        width: 350px; /* Adjust the image size */
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 10px; /* Space between image and button */
+        border-radius: 10px; /* Optional: Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+    }
 
-.image-section .btn {
-    background-color: #007bff; /* Primary blue */
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .image-section .btn {
+        background-color: #007bff; /* Primary blue */
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.image-section .btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-
+    .image-section .btn:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
 </style>
 {% endblock %}
 
@@ -179,9 +180,6 @@
     <h1>Weekly Task Schedule</h1>
     <br>
     <p>Welcome to Task Master! Plan your weekly cooking and cleaning tasks with ease. Stay organized and on top of your chores.</p>
-    
-  
-    
 </div>
 <div class="content-container">
     <!-- Table Section -->
@@ -220,11 +218,16 @@
 <button class="download-btn" onclick="downloadCSV()">Download Table as CSV</button>
 <div class="tabs-wrapper">
     <a href="/assignment/homepage/" class="tab">
-        <img src="https://thepapermarioproject.wordpress.com/wp-content/uploads/2013/03/marios-house-exterior-1.png" alt="Home Icon"  style="width: 100px; height: auto;">
-        <span>Home</span>
+        <img src="/static/uploads/wallpaper/hu1.png" alt="Home Icon">   <span>Home</span>
     </a>
 </div>
-
+<div>
+    <br>
+    <p>
+        This user-friendly tool is designed to help you efficiently plan and manage your weekly cooking and cleaning tasks. With this tool, you can create a detailed schedule for chores such as meal preparation, grocery shopping, laundry, dishwashing, and more. Tasks are categorized into cooking and cleaning, making it easier to focus on specific duties. Once you've organized your week, you can download the task list as a CSV file for easy sharing, printing, or quick reference. Whether you're juggling multiple responsibilities or just want to stay organized, Task Master ensures that all your chores are covered and completed on time.    </p>
+<br>
+    </div>
+<br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function downloadCSV() {
@@ -243,5 +246,9 @@
         link.click();
         document.body.removeChild(link);
     }
+
+    document.querySelector(".btn-primary").addEventListener("click", () => {
+        document.querySelector(".table-container").scrollIntoView({ behavior: "smooth" });
+    });
 </script>
 {% endblock %}

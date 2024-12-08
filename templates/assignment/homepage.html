@@ -3,82 +3,59 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-    /* Apply general reset */
+    /* General Reset */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    /* Body styling */
+    /* Body Styling */
     body {
         font-family: 'Press Start 2P', cursive;
         color: white;
         margin: 0;
         padding: 0;
-
-        /* Galaxy-like gradient effect */
         background: radial-gradient(circle at center, #2b0a45, #000),
             radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-
-        /* Optional animation effect */
-        animation: stars 60s linear infinite;
     }
 
-    /* Add subtle animation effect to mimic galaxy motion */
+    /* Galaxy Animation */
     @keyframes stars {
-        0% {
-            background-position: 0 0;
-        }
-
-        100% {
-            background-position: 100% 100%;
-        }
+        0% { background-position: 0 0; }
+        100% { background-position: 100% 100%; }
     }
 
-    /* Example for star-like effects */
-    .stars {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle, #fff, transparent 60%);
-        opacity: 0.7;
-        animation: shimmer 2s ease-in-out infinite;
-    }
-
-    /* Simulate shimmer effect */
-    @keyframes shimmer {
-        0% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-2px);
-        }
-
-        100% {
-            transform: translateY(0);
-        }
-    }
-
-    .content {
+    /* Main Content Styling */
+    .container {
+        margin-bottom: 120px;
+        overflow-y: auto;
         padding: 20px;
         text-align: center;
     }
 
-    .card-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 40px;
-        position: relative;
-        z-index: 10;
+    .content h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
     }
 
-    /* Moved cards slightly up */
+    .content p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+    }
+
+    /* Card Styling */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
     .card {
         background: rgba(0, 0, 0, 0.8);
         border-radius: 10px;
@@ -89,381 +66,288 @@
         transition: transform 0.3s ease;
     }
 
-    .card h2 {
-        font-size: 1.5rem;
-        color: #ffd700;
-        /* Gold for the Mario vibe */
-        margin-bottom: 15px;
-    }
-
-    .card p {
-        color: white;
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
-
     .card:hover {
         transform: scale(1.05);
     }
 
+    .card h2 {
+        font-size: 1.5rem;
+        color: #ffd700;
+        margin-bottom: 15px;
+    }
+
+    .card p {
+        font-size: 1rem;
+        color: white;
+    }
+
     .btn-custom {
         background-color: #ff4500;
-        border-color: #ff4500;
         color: white;
         font-weight: bold;
         text-transform: uppercase;
-        width: 100%;
+        padding: 10px;
+        text-align: center;
     }
 
     .btn-custom:hover {
         background-color: #d83c00;
-        border-color: #d83c00;
     }
 
-
-    /* Home and Back Navigation */
-    .tabs-wrapper {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        /* Centers the home icon */
-        padding: 10px 0;
-    }
-
-    .tab {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: white;
-        text-decoration: none;
-    }
-
-    .tab img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .tab span {
-        margin-top: 5px;
-        font-size: 1rem;
-        color: #ffd700;
-        /* Gold text for Mario vibe */
-    }
-
-    .tabs-wrappers {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    .tabs-wrappers-left {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        /* Position on the left side of the screen */
-        display: flex;
-        flex-direction: column;
-        /* Align items in a column */
-        align-items: center;
-        /* Center items horizontally */
-        padding: 20px;
-        /* Add some spacing around the wrapper */
-    }
-
-    .tabs-wrappers-left .icon {
-        width: 150px;
-        /* Increase the image width */
-        height: auto;
-        /* Maintain aspect ratio */
-        margin-bottom: 10px;
-        /* Space between the image and the button */
-    }
-
-    .btn-custom {
-        background-color: #ffd700;
-        /* Gold color for Mario vibe */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-custom:hover {
-        background-color: #e5b800;
-        /* Slightly darker gold on hover */
-    }
-
+    /* Image Container Styling */
     .image-container {
         display: flex;
-        /* Arrange items side by side */
-        gap: 110px;
-        /* Space between images */
+        flex-wrap: wrap;
+        gap: 20px;
         justify-content: center;
-        /* Center the images */
-        align-items: center;
-        /* Align images vertically */
+        margin-bottom: 30px;
     }
 
     .image-wrapper {
         position: relative;
-        /* Needed for overlay */
         flex: 1;
-        /* Equal scaling for all items */
         max-width: 200px;
-        /* Limit maximum width */
         border-radius: 8px;
-        /* Optional: Rounded corners */
         overflow: hidden;
-        /* Ensure overlay stays within bounds */
     }
 
     .blend-image {
         width: 100%;
         height: auto;
         object-fit: cover;
-        /* Maintain aspect ratio */
-        z-index: 1;
-        /* Ensure image is below overlay */
     }
 
-    .overlay {
-        position: absolute;
+    /* Navigation Styling */
+    .tabs-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        background: black;
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+    }
+
+    .tab img {
+        width: 50px;
+        height: auto;
+    }
+
+    .tab span {
+        margin-top: 5px;
+        font-size: 1rem;
+        color: #ffd700;
+    }
+
+    /* Popup Styling */
+    .popup-container {
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 2;
-        /* Above image */
-        pointer-events: none;
-        /* Allow clicks to pass through */
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
     }
 
-    .popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    .popup-content {
+        background: radial-gradient(circle at center, #2b0a45, #000),
+            radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+        position: relative;
+        text-align: center;
+        width: 80%;
+        max-width: 800px;
+        height: 70%;
+        color: white;
+    }
+
+    .popup-heading {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        color: #ea0b0b;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .popup-content p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    .warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+    .tabs-wrapper {
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
 }
 
-.popup-content {
-    background: radial-gradient(circle at center, #2b0a45, #000), radial-gradient(circle at 40% 30%, #6e0dd0, transparent 50%, #000 50%);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
-    position: relative;
-    text-align: center;
-    width: 80%;
-    max-width: 800px;
-    height: 70%;
+.tabs {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.tabs img {
+    width: 50px; /* Adjust size of the image */
+    height: auto; /* Adjust size of the image */
+    margin-right: 8px; /* Space between the image and text */
+}
+
+.btn-customs {
+    background-color: #ff4500;
     color: white;
-    font-size: 0.6em;
-}
-
-.popup-heading {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #ea0b0b;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
     border: none;
-    font-size: 1.5em;
-    color: #fff;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-.popup-content p {
-    font-size: 1.0em;
-    margin-bottom: 20px;
+.icons {
+    width: 50px;  /* Size of the icon image */
+    height: 50px; /* Size of the icon image */
 }
-.warning {
-      color: #856404;
-      background-color: #fff3cd;
-      border: 1px solid #ffeeba;
-      padding: 10px;
-      border-radius: 5px;
-      margin: 20px 0;
-      font-size: 0.6em;
-    }
+
 
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="container content">
+    <br>
     <h1>Household Management Hub</h1>
-    <p>Welcome to the House Tasks Dashboard. Here you can manage your weekly schedule, keep track of pantry stock, and
-        monitor your bills.</p>
+    <p>Welcome to the House Tasks Dashboard, your one-stop solution for managing daily chores and household tasks with ease. This dashboard provides an intuitive interface that allows you to efficiently organize and monitor your weekly schedule. Whether it's grocery shopping, cleaning tasks, or meal planning, you can stay on top of your responsibilities and plan ahead. By categorizing and assigning specific tasks to each day of the week, you can create a structured routine that ensures you never miss a critical household duty. The dashboard's user-friendly features help track your progress and adjust tasks as necessary, making it easier than ever to maintain a balanced and productive week.</p>
+    <p style="color: red;">Don't forget to scroll down</p>
+    <!-- Cards -->
     <div class="image-container">
         <div class="image-wrapper">
-            <img src="/static/uploads/wallpaper/1p.png" alt="Back Icon" class="blend-image">
-            <div class="overlay"></div>
+            <img src="/static/uploads/wallpaper/1p.png" alt="Wallpaper 1" class="blend-image">
         </div>
         <div class="image-wrapper">
-            <img src="/static/uploads/wallpaper/7.webp" alt="Back Icon" class="blend-image">
-            <div class="overlay"></div>
+            <img src="/static/uploads/wallpaper/7.webp" alt="Wallpaper 2" class="blend-image">
         </div>
         <div class="image-wrapper">
-            <img src="/static/uploads/wallpaper/10.webp" alt="Back Icon" class="blend-image">
-            <div class="overlay"></div>
+            <img src="/static/uploads/wallpaper/10.webp" alt="Wallpaper 3" class="blend-image">
         </div>
     </div>
     <div class="card-container">
-        <!-- House Timetable Card -->
         <div class="card">
             <h2>House Timetable</h2>
             <p>Check out the weekly schedule and manage tasks effectively.</p>
             <a href="/assignment/grol/" class="btn btn-custom">View Timetable</a>
         </div>
-
-        <!-- Pantry Stock Card -->
         <div class="card">
             <h2>Pantry Stock</h2>
             <p>Keep track of your pantry stock and plan your shopping.</p>
             <a href="/assignment/pantrypage/" class="btn btn-custom">View Pantry</a>
         </div>
-
-        <!-- Bills Stock Card -->
         <div class="card">
             <h2>Bills</h2>
-            <p>Keep track of your bills stock and check your monthly spending.</p>
+            <p>Keep track of your bills and check your monthly spending.</p>
             <a href="/assignment/bills/" class="btn btn-custom">View Bills</a>
         </div>
     </div>
+<br>
+    
+  <p>In addition to organizing your tasks, the House Tasks Dashboard helps you manage essential resources such as pantry stock and bills. The pantry stock feature allows you to keep track of what you have in your kitchen, helping you avoid unnecessary purchases and ensuring that you never run out of key ingredients. You can easily add or remove items as needed, and the dashboard will provide alerts when stock levels are low. The bills section enables you to manage your financial obligations by tracking upcoming payments, due dates, and amounts, making it easier to stay on top of your budget. By bringing all these tools together in one place, the House Tasks Dashboard empowers you to streamline your household management, saving time and reducing stress.</p> <!-- Popup -->
     <br>
-
-    <div id="chart-popup" class="popup-container" style="display: none;">
+    <div id="chart-popup" class="popup-container">
         <div class="popup-content">
-            <h2 class="popup-heading">Groceries and Bills Pie Chart</h2>
-            <p>The pie chart below illustrates the distribution of groceries and bills in the respective sections. It gives a visual representation of the expenses.</p>
-            <p class="warning">For pie chart to be displayed add the data in groceries or in bills</p>
-            <canvas id="chartCanvas" width="300" height="300"></canvas>
             <button id="close-popup" class="close-btn">&times;</button>
+            <h2 class="popup-heading">Groceries and Bills Chart</h2>
+            <canvas id="chartCanvas" width="300" height="300"></canvas>
         </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="tabs-wrapper">
+        <div class="tabs">
+            <img src="/static/uploads/wallpaper/v1.png" alt="Visualization Icon" class="icons">
+            <button id="open-popup" class="btn-customs">Visualization</button>
+        </div>
+        <a href="/assignment/homepage/" class="tab">
+            <img src="/static/uploads/wallpaper/hu1.png" alt="Home Icon">
+            <span>Home</span>
+        </a>
+        <a href="/" class="tab">
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/962a96f4-f5f0-45ea-b9d5-14946824ef41/dc67dfm-376dff3d-736e-4ec5-8bfc-a3c61c176e90.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk2MmE5NmY0LWY1ZjAtNDVlYS1iOWQ1LTE0OTQ2ODI0ZWY0MVwvZGM2N2RmbS0zNzZkZmYzZC03MzZlLTRlYzUtOGJmYy1hM2M2MWMxNzZlOTAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kE6InkcA3bGa19oh_m-u6c--CmAHR8EXLCLKmU-jOMk"
+            alt="Back Icon">
+            <span>Exit</span>
+        </a>
+       
     </div>
     
 </div>
 
-<!-- Home and Back Navigation -->
-<div class="tabs-wrapper">
-    <a href="/assignment/homepage/" class="tab">
-        <img src="/static/uploads/wallpaper/hu1.png"
-            alt="Home Icon" style="width: 100px; height: auto;">
-        <span>Home</span>
-    </a>
-</div>
-<div class="tabs-wrappers">
-    <a href="/" class="tab">
-        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/962a96f4-f5f0-45ea-b9d5-14946824ef41/dc67dfm-376dff3d-736e-4ec5-8bfc-a3c61c176e90.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk2MmE5NmY0LWY1ZjAtNDVlYS1iOWQ1LTE0OTQ2ODI0ZWY0MVwvZGM2N2RmbS0zNzZkZmYzZC03MzZlLTRlYzUtOGJmYy1hM2M2MWMxNzZlOTAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kE6InkcA3bGa19oh_m-u6c--CmAHR8EXLCLKmU-jOMk"
-            alt="Back Icon" style="width: 100px; height: auto;">
-        <span>Exit</span>
-    </a>
-</div>
-
-<div class="tabs-wrappers-left">
-
-    <img src="/static/uploads/wallpaper/v1.png" alt="left Icon" style="width: 200px; height: auto;">
-    <button id="open-popup" class="btn btn-custom">Visualization</button>
-
-</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Ensure the DOM elements are loaded
     document.addEventListener('DOMContentLoaded', () => {
         const openPopupBtn = document.getElementById('open-popup');
         const closePopupBtn = document.getElementById('close-popup');
         const chartPopup = document.getElementById('chart-popup');
 
         if (openPopupBtn && closePopupBtn && chartPopup) {
-            // Show the popup
             openPopupBtn.addEventListener('click', async () => {
                 chartPopup.style.display = 'flex';
 
                 try {
-                    // Fetch the data
                     const response = await fetch('/assignment/visualize_data');
                     const data = await response.json();
-
-                    // Function to generate random color
-                    function generateRandomColor() {
-                        const letters = '0123456789ABCDEF';
-                        let color = '#';
-                        for (let i = 0; i < 6; i++) {
-                            color += letters[Math.floor(Math.random() * 16)];
-                        }
-                        return color;
-                    }
-
-                    // Mario colors for initial use
-                    const marioColors = [
-                        '#e74c3c',  // Mario Red
-                        '#f39c12',  // Coin Yellow
-                        '#2ecc71',  // Luigi Green
-                        '#3498db',  // Sky Blue
-                        '#f1c40f',  // Gold/Block Yellow
-                    ];
-
-                    // Generate colors: use marioColors first, then random colors for additional values
-                    const backgroundColors = data.values.map((_, index) => {
-                        return marioColors[index] || generateRandomColor();
-                    });
-
-                    // Chart.js Configuration
                     const ctx = document.getElementById('chartCanvas').getContext('2d');
+
                     new Chart(ctx, {
                         type: 'pie',
                         data: {
-                            labels: data.labels, // Example: ["Grocery", "Type1 Bills", "Type2 Bills", "Other Bills"]
+                            labels: data.labels,
                             datasets: [{
-                                data: data.values, // Example: [120, 450, 300, 130]
-                                backgroundColor: backgroundColors, // Dynamic colors (Mario + Random)
+                                data: data.values,
+                                backgroundColor: ['#e74c3c', '#f39c12', '#2ecc71', '#3498db', '#f1c40f'],
                             }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: { position: 'top' },
-                            }
                         }
                     });
                 } catch (error) {
-                    console.error('Error fetching visualization data:', error);
+                    console.error('Error fetching data:', error);
                 }
             });
 
-            // Hide the popup
             closePopupBtn.addEventListener('click', () => {
                 chartPopup.style.display = 'none';
             });
-        } else {
-            console.error('Popup or button elements not found in the DOM.');
         }
     });
-
 </script>
 {% endblock %}
