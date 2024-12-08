@@ -5,11 +5,12 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-
+CORS(app)
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -376,24 +377,20 @@ def visualize_data_api():
     # Prepare data for Grocery
     grocery_total = sum([item.price for item in groceries])
 
-    dic_bills={}
+    dic_bills = {}
     for a in bills:
-        if a.bill_name.lower() not in dic_bills:
-            dic_bills[a.bill_name.lower()]=a.amount
-        else:
-            dic_bills[a.bill_name.lower()]+=a.amount
+        bill_name = a.bill_name.lower()
+        dic_bills[bill_name] = dic_bills.get(bill_name, 0) + a.amount
 
     # Prepare data for visualization
     data = {
-        "labels": ["Grocery"],
-        "values": [grocery_total]
+        "labels": ["Grocery"] + list(dic_bills.keys()),
+        "values": [grocery_total] + list(dic_bills.values())
     }
-    for a in dic_bills:
-        data['values'].append(dic_bills[a])
-        data['labels'].append(str(a))
 
-    print(data)
     return jsonify(data)
+
+
 
 if __name__ == "__main__":
     with app.app_context():
